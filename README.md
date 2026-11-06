@@ -64,5 +64,5 @@ The installed app checks for a newer version when it starts. If one is available
 
 ## Notes
 
-- Windows 7 is not supported in this version.
+- Windows 7 is  added in this version.
 - Use only games and media you have the right to play.
