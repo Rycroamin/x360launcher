@@ -1,0 +1,69 @@
+{
+  "name": "xbox-dashboard",
+  "version": "1.2.0",
+  "description": "Xbox-style launcher for PC games and Xbox 360 ISOs (via Xenia)",
+  "main": "main.js",
+  "scripts": {
+    "build:html": "node tools/build-html.js",
+    "start": "node tools/build-html.js && electron .",
+    "pack": "node tools/build-html.js && electron-builder --win --dir",
+    "dist": "node tools/build-html.js && electron-builder --win",
+    "dist:win7": "node tools/build-html.js && electron-builder --config electron-builder.win7.json --win",
+    "dist:all": "npm install electron@22.3.27 --no-save && npm run dist:win7 && npm install && npm run dist"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.x360launcher.app",
+    "productName": "x360launcher",
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "icon.png",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.png"
+    },
+    "extraResources": [
+      {
+        "from": "xenia",
+        "to": "xenia",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "x360launcher"
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "Rycroamin",
+      "repo": "x360launcher",
+      "releaseType": "release"
+    },
+    "artifactName": "x360launcher-setup.exe"
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.9",
+    "node-unrar-js": "^2.0.2"
+  }
+}
